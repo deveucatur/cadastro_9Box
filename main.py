@@ -100,6 +100,7 @@ def CadastroDeUsuarios():
                     st.success("""Realize seu Login
 
 Com seu email e sua senha realize o login no seguinte link:
+
 ---
 https://nineboxeucatur.streamlit.app/
 ---""")
