@@ -97,7 +97,12 @@ def CadastroDeUsuarios():
                         conexao.commit()
                     
                     st.success("Cadastro Realizado com Sucesso!")
-                    st.success("Realize seu Login")
+                    st.success("""Realize seu Login
+
+Com seu email e sua senha realize o login no seguinte link:
+---
+https://nineboxeucatur.streamlit.app/
+---""")
 
                 else:
                     st.error("Código de cadastro ou e-mail já foi utilizado")
