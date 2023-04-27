@@ -79,25 +79,33 @@ def CadastroDeUsuarios():
             print("teste3")
             if codCadas in [x[1] for x in listCod]:
                 linhaBD = [x for x in range(len(listCod)) if  str(listCod[x][1]) == codCadas ][0]
-                if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[6] for x in listCod] and matricul not in [x[3] for x in listCod]:
-                    #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
-                    if funcao != 'Dono de processo':
-                        linrow = [unidade, matricul, nome, funcao, email, senha ]
-                        colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                    'Cargo','Email', "senha"]
-                    else:
-                        linrow = [unidade, matricul, nome, funcao, email, senha ]
-                        colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                    'Cargo','Email', "senha"]
 
-                    for i in range(len(linrow)):   
-                            #sql = f'INSERT INTO Usuario({colunas[0]},{colunas[1]},{colunas[2]},{colunas[3]},{colunas[4]},{colunas[5]},{colunas[6]}) VALUES ("{gerar_sequencia_aleatoria}", )'
-                        sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE cod_acesso = '{codCadas}'"
-                        mycursor.execute(sql)
-                        conexao.commit()
-                    
-                    st.success("Cadastro Realizado com Sucesso!")
-                    st.success("""Realize seu Login
+                maiusculo = False
+
+                for string_email in email:
+                    if string_email.isupper():
+                        maiusculo = True
+
+                if maiusculo == False:
+                    if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[6] for x in listCod] and matricul not in [x[3] for x in listCod]:
+                        #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
+                        if funcao != 'Dono de processo':
+                            linrow = [unidade, matricul, nome, funcao, email, senha ]
+                            colunas = ['Unid_Negocio', 'Matricula', 'Nome',
+                                        'Cargo','Email', "senha"]
+                        else:
+                            linrow = [unidade, matricul, nome, funcao, email, senha ]
+                            colunas = ['Unid_Negocio', 'Matricula', 'Nome',
+                                        'Cargo','Email', "senha"]
+
+                        for i in range(len(linrow)):   
+                                #sql = f'INSERT INTO Usuario({colunas[0]},{colunas[1]},{colunas[2]},{colunas[3]},{colunas[4]},{colunas[5]},{colunas[6]}) VALUES ("{gerar_sequencia_aleatoria}", )'
+                            sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE cod_acesso = '{codCadas}'"
+                            mycursor.execute(sql)
+                            conexao.commit()
+                        
+                        st.success("Cadastro Realizado com Sucesso!")
+                        st.success("""Realize seu Login
 
 Com seu email e sua senha realize o login no seguinte link:
 
@@ -105,8 +113,10 @@ Com seu email e sua senha realize o login no seguinte link:
 https://nineboxeucatur.streamlit.app/
 ---""")
 
+                    else:
+                        st.error("Código de cadastro ou e-mail já foi utilizado")
                 else:
-                    st.error("Código de cadastro ou e-mail já foi utilizado")
+                    st.error("O e-mail só pode conter letras minúsculas")
             else:
                 st.error("Código de cadastro inválido")
 
