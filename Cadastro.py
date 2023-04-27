@@ -74,9 +74,10 @@ def CadastroDeUsuarios():
             senha = st.text_input("Confirme a senha", type = "password")
             if senha != senhaaux:
                 st.error("As senhas precisam ser iguais")
+        
+        
         submitted = st.form_submit_button("Cadastrar")
         if submitted and senha == senhaaux:
-            print("teste3")
             if codCadas in [x[1] for x in listCod]:
                 linhaBD = [x for x in range(len(listCod)) if  str(listCod[x][1]) == codCadas ][0]
 
@@ -87,7 +88,7 @@ def CadastroDeUsuarios():
                         maiusculo = True
 
                 if maiusculo == False:
-                    if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[6] for x in listCod] and matricul not in [x[3] for x in listCod]:
+                    if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[7] for x in listCod] and matricul not in [x[4] for x in listCod]:
                         #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
                         if funcao != 'Dono de processo':
                             linrow = [unidade, matricul, nome, funcao, email, senha ]
