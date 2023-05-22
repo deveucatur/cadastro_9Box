@@ -1,17 +1,17 @@
 import streamlit as st
-import streamlit_authenticator as stauth
-import mysql.connector
+import pymysql
 from PIL import Image
 import random
 import string
 
-conexao = mysql.connector.connect(
-    passwd='nineboxeucatur',
+conexao = pymysql.connect(
+    passwd='npmyY8%UZ041',
     port=3306,
     user='ninebox',
-    host='nineboxeucatur.c7rugjkck183.sa-east-1.rds.amazonaws.com',
+    host='192.168.10.71',
     database='Colaboradores'
 )
+
 mycursor = conexao.cursor()
 
 st.set_page_config(
@@ -21,8 +21,6 @@ layout="centered")
 
 image = Image.open(('logo.png'))
 st.image(image, width = 250)
-#comando1 = 'ALTER TABLE Usuarios MODIFY senha VARCHAR(30) NOT NULL;'
-#mycursor.execute(comando1)
 comando2 = 'SELECT * FROM Usuarios;'
 mycursor.execute(comando2)
 listCod = mycursor.fetchall()
@@ -100,7 +98,6 @@ def CadastroDeUsuarios():
                                         'Cargo','Email', "senha"]
 
                         for i in range(len(linrow)):   
-                                #sql = f'INSERT INTO Usuario({colunas[0]},{colunas[1]},{colunas[2]},{colunas[3]},{colunas[4]},{colunas[5]},{colunas[6]}) VALUES ("{gerar_sequencia_aleatoria}", )'
                             sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE cod_acesso = '{codCadas}'"
                             mycursor.execute(sql)
                             conexao.commit()
@@ -111,7 +108,7 @@ def CadastroDeUsuarios():
 Com seu email e sua senha realize o login no seguinte link:
 
 ---
-https://nineboxeucatur.streamlit.app/
+https://9box.eucatur.com.br/
 ---""")
 
                     else:
