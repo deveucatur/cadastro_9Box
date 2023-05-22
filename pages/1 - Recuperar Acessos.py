@@ -1,7 +1,6 @@
 import streamlit as st
-import streamlit_authenticator as stauth
 from PIL import Image
-import mysql.connector
+import pymysql
 
 
 st.set_page_config(
@@ -10,14 +9,14 @@ st.set_page_config(
     layout="centered",
 )
 
-
-conexao = mysql.connector.connect(
-    passwd='nineboxeucatur',
+conexao = pymysql.connect(
+    passwd='npmyY8%UZ041',
     port=3306,
     user='ninebox',
-    host='nineboxeucatur.c7rugjkck183.sa-east-1.rds.amazonaws.com',
+    host='192.168.10.71',
     database='Colaboradores'
 )
+
 mycursor = conexao.cursor()
 comando2 = 'SELECT * FROM Usuarios;'
 mycursor.execute(comando2)
@@ -54,7 +53,7 @@ with st.form('Esqueceu a senha'):
 
                 st.info('''Dados de login alterados com sucesso
                     
-Basta fazer o [login](https://nineboxeucatur.streamlit.app/) na tela principal do sistema 9Box.''') 
+Basta fazer o [login](https://9box.eucatur.com.br/) na tela principal do sistema 9Box.''') 
             else:
                 st.error("O e-mail só pode conter letras minúsculas.")
         else:
