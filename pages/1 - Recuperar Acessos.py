@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import pymysql
+import streamlit_authenticator as stauth
 
 
 st.set_page_config(
@@ -35,6 +36,7 @@ with st.form('Esqueceu a senha'):
     btao = st.form_submit_button('Alterar dados')
 
     if btao:
+        new_senha_hashe = stauth.Hasher([new_senha]).generate()[0]
         if new_email not in listEmails:
             maiusculo = False
 
@@ -43,8 +45,8 @@ with st.form('Esqueceu a senha'):
                     maiusculo = True
 
             if maiusculo == False:
-                linrow = [new_email, new_senha]
-                colunas = ['Email', 'senha']
+                linrow = [new_email, new_senha, new_senha_hashe]
+                colunas = ['Email', 'senha', 'Senha_hashe']
                     
                 for i in range(len(colunas)):
                     sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE (cod_acesso = '{cod_cadastr}') AND (Matricula = {matricul});"
