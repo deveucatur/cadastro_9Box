@@ -1,8 +1,8 @@
 import streamlit as st
 import pymysql
 from PIL import Image
-import random
-import string
+import streamlit_authenticator as stauth
+
 
 conexao = pymysql.connect(
     passwd='npmyY8%UZ041',
@@ -89,13 +89,13 @@ def CadastroDeUsuarios():
                     if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[7] for x in listCod] and matricul not in [x[4] for x in listCod]:
                         #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
                         if funcao != 'Dono de processo':
-                            linrow = [unidade, matricul, nome, funcao, email, senha ]
+                            linrow = [unidade, matricul, nome, funcao, email, senha, stauth.Hasher([senha]).generate()[0]]
                             colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                        'Cargo','Email', "senha"]
+                                        'Cargo','Email', "senha", "Senha_hashe"]
                         else:
-                            linrow = [unidade, matricul, nome, funcao, email, senha ]
+                            linrow = [unidade, matricul, nome, funcao, email, senha, stauth.Hasher([senha]).generate()[0]]
                             colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                        'Cargo','Email', "senha"]
+                                        'Cargo','Email', "senha", 'Senha_hashe']
 
                         for i in range(len(linrow)):   
                             sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE cod_acesso = '{codCadas}'"
