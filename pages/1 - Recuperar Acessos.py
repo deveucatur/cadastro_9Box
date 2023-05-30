@@ -36,7 +36,7 @@ with st.form('Esqueceu a senha'):
     btao = st.form_submit_button('Alterar dados')
 
     if btao:
-        new_senha_hashe = stauth.Hasher([new_senha]).generate()[0]
+        new_senha_hashe = stauth.Hasher([str(new_senha).strip()]).generate()[0]
         if new_email not in listEmails:
             maiusculo = False
 
@@ -45,7 +45,7 @@ with st.form('Esqueceu a senha'):
                     maiusculo = True
 
             if maiusculo == False:
-                linrow = [new_email, new_senha, new_senha_hashe]
+                linrow = [str(new_email).strip(), str(new_senha).strip(), new_senha_hashe]
                 colunas = ['Email', 'senha', 'Senha_hashe']
                     
                 for i in range(len(colunas)):
