@@ -81,7 +81,7 @@ def CadastroDeUsuarios():
                 if maiusculo == False:
                     if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[7] for x in listCod] and matricul not in [x[4] for x in listCod]:
                         #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
-                        linrow = [unidade, matricul, nome, email, senha, stauth.Hasher([senha]).generate()[0]]
+                        linrow = [unidade, matricul, nome, str(email).strip(), str(senha).strip(), stauth.Hasher([senha]).generate()[0]]
                         colunas = ['Unid_Negocio', 'Matricula', 'Nome',
                                         'Email', "senha", 'Senha_hashe']
                         
