@@ -49,20 +49,13 @@ def CadastroDeUsuarios():
                                                           "CEEM Vilhena",
                                                           "Corporativo Cascavel",
                                                           "Corporativo Jí-Parana"])
-        nome = st.text_input("Nome")
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns((2,0.8))
         with col1:
-            funcao = st.selectbox('Função', ["Líder de Processos", "Dono de processo", "Gestor de Processos",
-                                             "Executor de Processos"])
+            nome = st.text_input("Nome")
+
         with col2:
             matricul = st.text_input('Matricula')
         
-        if funcao == "Dono de processo":
-            macroproc = st.selectbox('Macroprocesso', ["Relacionamento com Cliente - Pessoas",
-                                                           "Relacionamento com Cliente - Cargas",
-                                                           "Administrar",
-                                                           "Operar",
-                                                           "Formulação Estratégica"])
 
         email = st.text_input("Insira seu e-mail/Login")
         col1, col2 = st.columns(2)
@@ -88,15 +81,10 @@ def CadastroDeUsuarios():
                 if maiusculo == False:
                     if listCod[linhaBD][7] == '' or listCod[linhaBD][7] == None and email not in [x[7] for x in listCod] and matricul not in [x[4] for x in listCod]:
                         #f"{nome,email,senha,stauth.Hasher(senha).generate()[0],1}"
-                        if funcao != 'Dono de processo':
-                            linrow = [unidade, matricul, nome, funcao, email, senha, stauth.Hasher([senha]).generate()[0]]
-                            colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                        'Cargo','Email', "senha", "Senha_hashe"]
-                        else:
-                            linrow = [unidade, matricul, nome, funcao, email, senha, stauth.Hasher([senha]).generate()[0]]
-                            colunas = ['Unid_Negocio', 'Matricula', 'Nome',
-                                        'Cargo','Email', "senha", 'Senha_hashe']
-
+                        linrow = [unidade, matricul, nome, email, senha, stauth.Hasher([senha]).generate()[0]]
+                        colunas = ['Unid_Negocio', 'Matricula', 'Nome',
+                                        'Email', "senha", 'Senha_hashe']
+                        
                         for i in range(len(linrow)):   
                             sql = f"UPDATE Usuarios SET {colunas[i]} = '{linrow[i]}' WHERE cod_acesso = '{codCadas}'"
                             mycursor.execute(sql)
