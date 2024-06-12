@@ -14,7 +14,7 @@ conexao = pymysql.connect(
     passwd='npmyY8%UZ041',
     port=3306,
     user='ninebox',
-    host='192.168.10.71',
+    host='192.168.0.7',
     database='Colaboradores'
 )
 
