@@ -1,7 +1,7 @@
 matplotlib
 pandas
 Pillow
-streamlit
+streamlit==1.33.0
 pymysql
 openpyxl
-streamlit-authenticator
+streamlit-authenticator==0.2.3
